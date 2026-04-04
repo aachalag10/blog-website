@@ -1,0 +1,19 @@
+*.db
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+    
+# Virtual environment
+venv/
+.env
+
+# OS
+.DS_Store
+
+__pycache__/
+*.pyc
+venv/
+fastapi_project/venv/
+
