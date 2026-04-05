@@ -3,7 +3,7 @@ from .. import schemas,database,models
 from sqlalchemy.orm import Session
 from ..repository import blog
 from ..repository import user
-
+from typing import List
 get_db=database.get_db
 
 router=APIRouter(
@@ -50,4 +50,14 @@ def delete(id:int,db:Session=Depends(get_db)):
 
 
 
+@router.get('/user/{user_id}',response_model=List[schemas.showBlog])
+def show(user_id: int, db: Session = Depends(database.get_db)):
+    blog = db.query(models.Blog).filter(models.Blog.user_id == user_id).all()
 
+    if blog is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Blog with id {id} not found"
+        )
+
+    return blog

@@ -15,6 +15,7 @@ class Blog(BaseModel):
 
 
 class showBlog(BaseModel):
+    id:int
     title: str
     body: str
     class Config():
@@ -25,7 +26,12 @@ class User(BaseModel):
     email:str
     password:str
 
+class Me(BaseModel):
+    id:int
 
+class showUser(BaseModel):
+    name:str
+    
 class Login(BaseModel):
     email:str
     password:str

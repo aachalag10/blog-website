@@ -57,3 +57,19 @@ export async function getUser(id: number) {
     throw err;
   }
 }
+
+export async function getoneBlog(id: number) {
+  try {
+    const blog = await fetch(`http://127.0.0.1:8000/blog/${id}`, {
+      method: "GET",
+    });
+    if (!blog.ok) {
+      throw new Error("failed to fetch blog");
+    }
+    const result = await blog.json();
+    return result;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}

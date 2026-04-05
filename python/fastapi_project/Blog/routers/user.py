@@ -24,3 +24,14 @@ router=APIRouter(
 @router.post('/')
 def create_user(request:schemas.User,db:Session=Depends(get_db)):
     return user.create(request,db)
+
+@router.get('/me/{id}',response_model=schemas.showUser)
+def get_user(id:int,db:Session=Depends(get_db)):
+    user=db.query(models.Users).filter(models.Users.id==id).first()
+
+    if user is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"User not found"
+        )
+    return user
