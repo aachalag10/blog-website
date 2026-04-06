@@ -1,10 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { Input } from "@/components/input";
 import { useCallback, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import profile from "../profile/page";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const Auth = () => {
   const [username, setUserName] = useState("");
@@ -27,58 +37,86 @@ const Auth = () => {
   }, [router]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue/40">
-      {/* Card */}
-      <div className=" px-16 py-16 rounded-xl lg:w-2/5 lg:max-w-md">
-        <h2 className=" text-4xl mb-8 font-semibold">
-          {variant === "login" ? "Login" : "Sign Up "}
-        </h2>
-
-        <div className="space-y-4">
-          {variant === "register" && (
-            <Input
-              value={username}
-              placeholder="username"
-              onChange={setUserName}
-            />
-          )}
-
-          <Input
-            value={id}
-            placeholder="id"
-            onChange={(e: any) => setid(e.target.value)}
-          />
-          <Input
-            value={password}
-            placeholder="password"
-            onChange={(e: any) => setPassword(e.target.value)}
-          />
-        </div>
-
-        {/* Button */}
-        <button
-          onClick={() => router.push(`/profile?userid=${id}`)}
-          className="w-full bg-blue-600 py-2 rounded-md mt-6 text-white hover:bg-blue-700"
-        >
-          Login
-        </button>
-
-        {/* Footer */}
-        <p className="text-gray-400 mt-4 text-sm">
-          {variant === "login"
-            ? "First TIme using Blob |"
-            : "Already have an account |"}
-          <span
-            onClick={toggleVariant}
-            className=" hover:underline cursor-pointer"
-          >
-            {variant === "login"
-              ? " Create an account"
-              : " Sign in to your account"}
-          </span>
-        </p>
+    <>
+      <div className="min-h-screen flex items-center justify-center bg-blue/40">
+        <Card className="w-full max-w-sm">
+          <CardHeader>
+            <CardTitle>
+              {" "}
+              <h2 className=" text-4xl mb-8 font-semibold">
+                {variant === "login" ? "Login" : "Sign Up "}
+              </h2>
+            </CardTitle>
+            <CardDescription>
+              Enter your email below to login to your account
+            </CardDescription>
+            <CardAction>
+              <Button variant="link">Sign Up</Button>
+            </CardAction>
+          </CardHeader>
+          <CardContent>
+            <form>
+              <div className="flex flex-col gap-6">
+                {variant === "register" && (
+                  <>
+                    <div className="grid gap-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input
+                        value={username}
+                        placeholder="username"
+                        onChange={setUserName}
+                      />
+                    </div>
+                  </>
+                )}
+                <div className="grid gap-2">
+                  <Label htmlFor="email">User Id</Label>
+                  <Input
+                    value={id}
+                    placeholder="id"
+                    onChange={(e: any) => setid(e.target.value)}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <div className="flex items-center">
+                    <Label htmlFor="password">Password</Label>
+                    <a
+                      href="#"
+                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    >
+                      Forgot your password?
+                    </a>
+                  </div>
+                  <Input id="password" type="password" required />
+                </div>
+              </div>
+            </form>
+          </CardContent>
+          <CardFooter className="flex-col gap-2">
+            <Button
+              type="submit"
+              className="w-full"
+              onClick={() => router.push(`/profile?userid=${id}`)}
+            >
+              Login
+            </Button>
+            <p className="text-gray-400 mt-4 text-sm">
+              {variant === "login"
+                ? "First TIme using Blob |"
+                : "Already have an account |"}
+              <span
+                onClick={toggleVariant}
+                className=" hover:underline cursor-pointer"
+              >
+                {variant === "login"
+                  ? " Create an account"
+                  : " Sign in to your account"}
+              </span>
+            </p>
+          </CardFooter>
+        </Card>
       </div>
-    </div>
+    </>
   );
 };
 

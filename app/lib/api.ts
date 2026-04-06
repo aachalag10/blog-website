@@ -3,8 +3,13 @@ export async function getAllBlogs() {
   if (!res.ok) throw new Error("Failed to fetch blogs");
   return res.json();
 }
+type BlogInput = {
+  title: string;
+  body: string;
+  user_id: number;
+};
 
-export async function postBlogs(data: string) {
+export async function postBlogs(data: BlogInput) {
   try {
     const res = await fetch(`http://127.0.0.1:8000/blog`, {
       method: "POST",
